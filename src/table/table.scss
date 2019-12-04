@@ -1,0 +1,21 @@
+.table {
+  img {
+    height: 70px;
+    margin-left: 15px;
+  }
+
+  th[data-property] {
+    cursor: pointer;
+  }
+
+  th.desc {
+    &::before {
+      content: '\002193';
+    }
+  }
+  th.asc {
+    &::before {
+      content: '\002191';
+    }
+  }
+}
