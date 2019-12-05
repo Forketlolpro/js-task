@@ -3,32 +3,32 @@ import {Table} from "../table/table";
 import {Filter} from "../filter/filter";
 import {DefaultTableView} from "../table/table-view";
 import {DefaultFilterView} from "../filter/filter-view";
-import {FilterModeIItem} from "../filter/filter-mode-iItem";
-import {HeaderModeIItem} from "../table/header-mode-iItem";
+import {FilterModelItem} from "../filter/filter-model-item";
+import {HeaderModelItem} from "../table/header-model-item";
 import {simulateAsyncRequest} from "../utils/simulate-async-request";
 import {ReportItem} from "../utils/report-item";
 import {DefaultPaginationView} from "../pagination/pagination-view";
 
 let headerModel = {
-    image: new HeaderModeIItem('', false),
-    displayName: new HeaderModeIItem('Title', false),
-    displays: new HeaderModeIItem('Displays', true),
-    orders: new HeaderModeIItem('Purchase', true),
-    clicks: new HeaderModeIItem('Clicks', true),
-    abandonedUnits: new HeaderModeIItem('Abandoned Units', true),
-    soldUnits: new HeaderModeIItem('Sold units', true),
-    revenue: new HeaderModeIItem('Revenue', true),
-    profit: new HeaderModeIItem('Profit', true)
+    image: new HeaderModelItem('', false),
+    displayName: new HeaderModelItem('Title', false),
+    displays: new HeaderModelItem('Displays', true),
+    orders: new HeaderModelItem('Purchase', true),
+    clicks: new HeaderModelItem('Clicks', true),
+    abandonedUnits: new HeaderModelItem('Abandoned Units', true),
+    soldUnits: new HeaderModelItem('Sold units', true),
+    revenue: new HeaderModelItem('Revenue', true),
+    profit: new HeaderModelItem('Profit', true)
 };
 
 let filterModel = {
-    displays: new FilterModeIItem('Displays'),
-    orders: new FilterModeIItem('Purchases'),
-    clicks: new FilterModeIItem('Clicks '),
-    abandonedUnits: new FilterModeIItem('Abandoned Units'),
-    soldUnits: new FilterModeIItem('Sold units'),
-    revenue: new FilterModeIItem('Revenue'),
-    profit: new FilterModeIItem('Profit')
+    displays: new FilterModelItem('Displays'),
+    orders: new FilterModelItem('Purchases'),
+    clicks: new FilterModelItem('Clicks '),
+    abandonedUnits: new FilterModelItem('Abandoned Units'),
+    soldUnits: new FilterModelItem('Sold units'),
+    revenue: new FilterModelItem('Revenue'),
+    profit: new FilterModelItem('Profit')
 };
 
 export class App {

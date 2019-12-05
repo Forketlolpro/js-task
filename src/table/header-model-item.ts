@@ -1,4 +1,4 @@
-export class HeaderModeIItem {
+export class HeaderModelItem {
     title: string;
     sortable: boolean;
 

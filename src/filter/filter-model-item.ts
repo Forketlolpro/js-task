@@ -1,4 +1,4 @@
-export class FilterModeIItem {
+export class FilterModelItem {
     title: string;
     min: number = Number.MAX_SAFE_INTEGER;
     max: number = 0;
