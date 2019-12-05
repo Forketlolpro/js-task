@@ -12,8 +12,8 @@ export class Paginator implements Subject {
 
     constructor(view: PaginationView) {
         this.view = view;
-        document.querySelector(this.view.selector).addEventListener('change', this.changeEventHandler.bind(this));
-        document.querySelector(this.view.selector).addEventListener('click', this.clickEventHandler.bind(this));
+        document.querySelector(this.view.selector).addEventListener('change', this.changeEventHandler);
+        document.querySelector(this.view.selector).addEventListener('click', this.clickEventHandler);
     }
 
     initialize(data): void {
@@ -24,16 +24,16 @@ export class Paginator implements Subject {
         this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage, this.data.length);
     }
 
-    private changeEventHandler(e) {
+    private changeEventHandler = (e) => {
         this.itemsOnPage = e.target.value;
         this.pagesTotal = Math.ceil(this.data.length / this.itemsOnPage);
         this.currentPage = 1;
         this.takeCurrentPageElement();
         this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage, this.data.length);
         this.notify();
-    }
+    };
 
-    private clickEventHandler(e: any) {
+    private clickEventHandler = (e: any) => {
         e.stopPropagation();
         if (!e.target.closest('.number') || e.target.className) {
             return false;
@@ -42,7 +42,7 @@ export class Paginator implements Subject {
         this.takeCurrentPageElement();
         this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage, this.data.length);
         this.notify();
-    }
+    };
 
     private takeCurrentPageElement() {
         this.currentPageData = this.data.slice((this.currentPage - 1) * this.itemsOnPage, (this.currentPage) * this.itemsOnPage);

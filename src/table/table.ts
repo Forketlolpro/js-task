@@ -1,6 +1,7 @@
 import {Subject} from "../interfaces/interfaces";
 import {TableView} from "./table-view";
-import {SortingModel} from "./sorting-model";
+import {SortModel} from "./sort-model";
+import {sortFunc} from "../utils/sort-func";
 
 export class Table implements Subject {
     private observers: Array<any> = [];
@@ -8,27 +9,28 @@ export class Table implements Subject {
     private data: [];
     private visibleData: Array<any>;
     private headerModel: object;
-    private sortingModel: SortingModel;
+    private sortingModel: SortModel;
     public sortedData: any[];
 
     constructor(view: TableView) {
         this.view = view;
-        this.sortingModel = new SortingModel();
-        document.querySelector(this.view.selector).addEventListener('click', this.clickEventHandler.bind(this));
+        this.sortingModel = new SortModel();
+        document.querySelector(this.view.selector).addEventListener('click', this.clickEventHandler);
     }
 
-    initialize(headerModel, body, ...args) {
-        if (args.length > 0) {
-            this.data = args[0];
-            this.sortedData = [...args[0]];
-            this.sortingModel.key = '';
-        }
+    updateData(headerModel, body) {
         this.headerModel = headerModel;
         this.visibleData = body;
         this.show();
     }
 
-    clickEventHandler(e) {
+    updateOriginalData(data) {
+        this.data = data;
+        this.sortedData = [...data];
+        this.sortingModel.prop = '';
+    }
+
+    clickEventHandler = (e) => {
         e.stopPropagation();
         if (e.target.closest('thead') && e.target.dataset["property"]) {
             let elem = e.target;
@@ -36,18 +38,28 @@ export class Table implements Subject {
             this.sort();
             this.notify();
         }
-    }
+    };
 
     attach(observer: any): void {
         this.observers.push(observer);
     }
 
     setSortingModel(key) {
-        if (key !== this.sortingModel.key) {
-            this.sortingModel.key = key;
+        if (key !== this.sortingModel.prop) {
+            this.sortingModel.prop = key;
             this.sortingModel.direction = 'desc';
         } else {
-            this.sortingModel.direction = (this.sortingModel.direction === 'desc') ? 'asc' : (this.sortingModel.direction === 'asc') ? 'origin' : 'desc';
+            this.switchSortDirection()
+        }
+    }
+
+    switchSortDirection() {
+        if (!this.sortingModel.direction) {
+            this.sortingModel.direction = 'desc';
+        } else if (this.sortingModel.direction === 'desc') {
+            this.sortingModel.direction = 'asc'
+        } else {
+            this.sortingModel.direction = null;
         }
     }
 
@@ -63,14 +75,10 @@ export class Table implements Subject {
     }
 
     sort() {
-        if (this.sortingModel.direction === 'desc') {
-            this.sortedData.sort(this.sortingModel.descCallback.bind(this));
+        if (this.sortingModel.direction) {
+            this.sortedData.sort(sortFunc(this.sortingModel.prop, this.sortingModel.direction));
         }
-
-        if (this.sortingModel.direction === 'asc') {
-            this.sortedData.sort(this.sortingModel.ascCallback.bind(this));
-        }
-        if (this.sortingModel.direction === 'origin') {
+        if (this.sortingModel.direction === null) {
             this.sortedData = [...this.data];
         }
     }

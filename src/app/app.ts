@@ -39,29 +39,31 @@ export class App {
         simulateAsyncRequest().then(json=>{
             this.filter = new Filter(new FilterView('.filter'));
             this.filter.initialize(json, filterModel);
-            this.filter.attach(this.filterHandler.bind(this));
+            this.filter.attach(this.filterHandler);
 
             this.paginator = new Paginator(new PaginationView('.paginator'));
             this.paginator.initialize(json);
-            this.paginator.attach(this.paginationHandler.bind(this));
+            this.paginator.attach(this.paginationHandler);
 
             this.table = new Table(new TableView('.table'));
-            this.table.attach(this.tableHandler.bind(this));
-            this.table.initialize(headerModel, this.paginator.currentPageData, json);
+            this.table.attach(this.tableHandler);
+            this.table.updateOriginalData(json);
+            this.table.updateData(headerModel, this.paginator.currentPageData);
         });
     }
 
-    paginationHandler(currentPageData: any): void {
-        this.table.initialize(headerModel, currentPageData)
-    }
+    paginationHandler = (currentPageData: any): void => {
+        this.table.updateData(headerModel, currentPageData)
+    };
 
-    tableHandler(data: any): void {
+    tableHandler = (data: any): void => {
         this.paginator.initialize(data);
-        this.table.initialize(headerModel, this.paginator.currentPageData);
-    }
+        this.table.updateData(headerModel, this.paginator.currentPageData);
+    };
 
-    filterHandler(data: any): void {
+    filterHandler = (data: any): void => {
         this.paginator.initialize(data);
-        this.table.initialize(headerModel, this.paginator.currentPageData, data);
+        this.table.updateOriginalData(data);
+        this.table.updateData(headerModel, this.paginator.currentPageData);
     }
 }

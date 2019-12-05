@@ -15,8 +15,8 @@ export class TableView implements Rendereble {
     private generateHeader(headerModel, sortingModel) {
         return Object.keys(headerModel).map(key => {
             let htmlClass = '';
-            if (sortingModel.key === key) {
-                htmlClass = sortingModel.direction;
+            if (sortingModel.prop === key) {
+                htmlClass = sortingModel.direction ? sortingModel.direction: '';
             }
             return (headerModel[key].sortable) ? `<th class='${htmlClass}' data-property='${key}'> ${headerModel[key].title} </th>` : `<th> ${headerModel[key].title} </th>`;
         }).join(' ');

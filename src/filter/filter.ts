@@ -10,10 +10,10 @@ export class Filter implements Subject {
 
     constructor(view: FilterView) {
         this.view = view;
-        document.querySelector(this.view._selector).addEventListener('submit', this.submitEventHandler.bind(this));
-        document.querySelector(this.view._selector).addEventListener('focusout', this.focusoutEventHandler.bind(this));
-        document.querySelector(this.view._selector).addEventListener('keydown', this.keypressEventHandler.bind(this));
-        document.querySelector(this.view._selector).addEventListener('click', this.clickEventHandler.bind(this));
+        document.querySelector(this.view._selector).addEventListener('submit', this.submitEventHandler);
+        document.querySelector(this.view._selector).addEventListener('focusout', this.focusoutEventHandler);
+        document.querySelector(this.view._selector).addEventListener('keydown', this.keypressEventHandler);
+        document.querySelector(this.view._selector).addEventListener('click', this.clickEventHandler);
     }
 
     initialize(data, model) {
@@ -39,22 +39,22 @@ export class Filter implements Subject {
         }
     }
 
-    clickEventHandler (e) {
+    clickEventHandler = (e) => {
         e.stopPropagation();
         if(e.target.className === 'resetFilter') {
             this.filterModel[e.target.dataset['property']].selectMin = this.filterModel[e.target.dataset['property']].min;
             this.filterModel[e.target.dataset['property']].selectMax = this.filterModel[e.target.dataset['property']].max;
             this.show();
         }
-    }
+    };
 
-    keypressEventHandler(e) {
+    keypressEventHandler = (e) => {
         if(e.code ==='Enter') {
             e.preventDefault();
         }
-    }
+    };
 
-    focusoutEventHandler(e) {
+    focusoutEventHandler = (e) => {
         if (e.target.tagName==='BUTTON') {
             return true;
         }
@@ -68,9 +68,9 @@ export class Filter implements Subject {
 
         this.filterModel[elem.dataset['property']]['select'+elem.dataset['use']] = +elem.value;
         this.show();
-    }
+    };
 
-    submitEventHandler(e) {
+    submitEventHandler = (e) => {
         e.preventDefault();
         e.stopPropagation();
         for (let i = 0; i < e.target.length - 1; i++) {
@@ -83,11 +83,11 @@ export class Filter implements Subject {
         }
         this.filter();
         this.notify();
-    }
+    };
 
     show(): void {
         this.view.render(this.filterModel);
-    }
+    };
 
     private filter() {
         let self = this;
@@ -96,7 +96,7 @@ export class Filter implements Subject {
                 return (item[key] <= self.filterModel[key].selectMax) && (item[key] >= self.filterModel[key].selectMin);
             });
         });
-    }
+    };
 
     private calculateRange() {
         this.data.forEach(item => {
