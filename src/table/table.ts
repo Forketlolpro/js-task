@@ -1,18 +1,18 @@
-import {Subject} from "../interfaces/interfaces";
-import {TableView} from "./table-view";
+import {Subject, TableView} from "../interfaces/interfaces";
 import {SortModel} from "./sort-model";
 import {sortFunc} from "../utils/sort-func";
+import {ReportItem} from "../utils/report-item";
 
 export class Table implements Subject {
     private observers: Array<any> = [];
-    private view: TableView;
+    private view: TableView<ReportItem>;
     private data: [];
     private visibleData: Array<any>;
     private headerModel: object;
     private sortingModel: SortModel;
     public sortedData: any[];
 
-    constructor(view: TableView) {
+    constructor(view: TableView<ReportItem>) {
         this.view = view;
         this.sortingModel = new SortModel();
         document.querySelector(this.view.selector).addEventListener('click', this.clickEventHandler);

@@ -1,14 +1,10 @@
-import {Rendereble} from "../interfaces/interfaces";
+import {FilterView} from "../interfaces/interfaces";
 
-export class FilterView implements Rendereble {
-    _selector: string;
-
-    get selector(): string {
-        return this._selector;
-    }
+export class DefaultFilterView implements FilterView {
+    selector: string;
 
     constructor(selector: string) {
-        this._selector = selector;
+        this.selector = selector
     }
 
     generateResetButton(item) {
@@ -45,6 +41,6 @@ export class FilterView implements Rendereble {
 
     render(...args: any[]): void {
         let model = args[0];
-        document.querySelector(this._selector).innerHTML = this.generateTemplate(model);
+        document.querySelector(this.selector).innerHTML = this.generateTemplate(model);
     }
 }

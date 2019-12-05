@@ -1,17 +1,16 @@
-import {Rendereble} from "../interfaces/interfaces";
+import {PaginationView} from "../interfaces/interfaces";
+import {PaginationViewParam} from "./pagination-view-param";
 
-export class PaginationView implements Rendereble{
-    _selector: string;
+export class DefaultPaginationView implements PaginationView{
+    selector: string;
     constructor(selector: string) {
-        this._selector = selector;
+        this.selector = selector;
     }
 
-    get selector(): string {
-        return this._selector;
-    }
 
-    public render(current: number, last: number, itemsOnPage: number, totalElements: number) {
-        document.querySelector(this._selector).innerHTML = this.generateTemplate(+current, +last, +itemsOnPage, totalElements);
+
+    public render(paginationParams: PaginationViewParam) {
+        document.querySelector(this.selector).innerHTML = this.generateTemplate(+paginationParams.currentPage, +paginationParams.pagesTotal, paginationParams.itemsOnPage, paginationParams.itemCount);
     }
 
     generatePagesArrangementRef (currentPage: number, pageCount: number) {

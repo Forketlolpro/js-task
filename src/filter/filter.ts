@@ -1,5 +1,5 @@
-import {Subject} from "../interfaces/interfaces";
-import {FilterView} from "./filter-view";
+import {FilterView, Subject} from "../interfaces/interfaces";
+import {ReportItem} from "../utils/report-item";
 
 export class Filter implements Subject {
     public filteredData: [];
@@ -10,10 +10,10 @@ export class Filter implements Subject {
 
     constructor(view: FilterView) {
         this.view = view;
-        document.querySelector(this.view._selector).addEventListener('submit', this.submitEventHandler);
-        document.querySelector(this.view._selector).addEventListener('focusout', this.focusoutEventHandler);
-        document.querySelector(this.view._selector).addEventListener('keydown', this.keypressEventHandler);
-        document.querySelector(this.view._selector).addEventListener('click', this.clickEventHandler);
+        document.querySelector(this.view.selector).addEventListener('submit', this.submitEventHandler);
+        document.querySelector(this.view.selector).addEventListener('focusout', this.focusoutEventHandler);
+        document.querySelector(this.view.selector).addEventListener('keydown', this.keypressEventHandler);
+        document.querySelector(this.view.selector).addEventListener('click', this.clickEventHandler);
     }
 
     initialize(data, model) {

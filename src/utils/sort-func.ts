@@ -7,6 +7,6 @@ export function sortFunc(prop: string, order: SortDirection) {
         let comparison = 0;
         if (a[prop] > b[prop]) comparison = 1;
         if (a[prop] < b[prop]) comparison = -1;
-        return order === 'desc' ? comparison * -1 : comparison;
+        return order ==='desc' ? comparison * -1 : comparison;
     }
 }

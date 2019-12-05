@@ -1,12 +1,13 @@
 import {Paginator} from "../pagination/pagination";
 import {Table} from "../table/table";
 import {Filter} from "../filter/filter";
-import {PaginationView} from "../pagination/pagination-view";
-import {TableView} from "../table/table-view";
-import {FilterView} from "../filter/filter-view";
+import {DefaultTableView} from "../table/table-view";
+import {DefaultFilterView} from "../filter/filter-view";
 import {FilterModeIItem} from "../filter/filter-mode-iItem";
 import {HeaderModeIItem} from "../table/header-mode-iItem";
-import {simulateAsyncRequest} from "../helpers/simulate-async-request";
+import {simulateAsyncRequest} from "../utils/simulate-async-request";
+import {ReportItem} from "../utils/report-item";
+import {DefaultPaginationView} from "../pagination/pagination-view";
 
 let headerModel = {
     image: new HeaderModeIItem('', false),
@@ -36,16 +37,16 @@ export class App {
     private filter: Filter;
 
     constructor() {
-        simulateAsyncRequest().then(json=>{
-            this.filter = new Filter(new FilterView('.filter'));
+        simulateAsyncRequest().then((json: ReportItem) =>{
+            this.filter = new Filter(new DefaultFilterView('.filter'));
             this.filter.initialize(json, filterModel);
             this.filter.attach(this.filterHandler);
 
-            this.paginator = new Paginator(new PaginationView('.paginator'));
+            this.paginator = new Paginator(new DefaultPaginationView('.paginator'));
             this.paginator.initialize(json);
             this.paginator.attach(this.paginationHandler);
 
-            this.table = new Table(new TableView('.table'));
+            this.table = new Table(new DefaultTableView('.table'));
             this.table.attach(this.tableHandler);
             this.table.updateOriginalData(json);
             this.table.updateData(headerModel, this.paginator.currentPageData);
@@ -56,12 +57,12 @@ export class App {
         this.table.updateData(headerModel, currentPageData)
     };
 
-    tableHandler = (data: any): void => {
+    tableHandler = (data: ReportItem): void => {
         this.paginator.initialize(data);
         this.table.updateData(headerModel, this.paginator.currentPageData);
     };
 
-    filterHandler = (data: any): void => {
+    filterHandler = (data: ReportItem): void => {
         this.paginator.initialize(data);
         this.table.updateOriginalData(data);
         this.table.updateData(headerModel, this.paginator.currentPageData);

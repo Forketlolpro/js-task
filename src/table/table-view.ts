@@ -1,15 +1,10 @@
-import {Rendereble} from "../interfaces/interfaces";
+import {TableView} from "../interfaces/interfaces";
 
 const IMAGE_PREFIX = 'https://s3.eu-central-1.amazonaws.com/showcase-demo-images/fashion/images/';
 
-export class TableView implements Rendereble {
-    _selector: string;
-    get selector(): string {
-        return this._selector;
-    }
-
+export class DefaultTableView<ReportItem> implements TableView<ReportItem> {
     constructor(selector: string) {
-        this._selector = selector;
+        this.selector = selector;
     }
 
     private generateHeader(headerModel, sortingModel) {
@@ -51,6 +46,8 @@ export class TableView implements Rendereble {
     }
 
     render(headerModel, bodyModel, sortingModel) {
-        document.querySelector(this._selector).innerHTML = this.generateTemplate(headerModel, bodyModel, sortingModel);
+        document.querySelector(this.selector).innerHTML = this.generateTemplate(headerModel, bodyModel, sortingModel);
     }
+
+    selector: string;
 }
