@@ -21,7 +21,7 @@ export class Paginator implements Subject {
         this.data = data;
         this.viewParam.pagesTotal = Math.ceil(this.data.length / this.viewParam.itemsOnPage);
         this.viewParam.currentPage = 1;
-        this.viewParam.itemCount = data.lenght;
+        this.viewParam.itemCount = data.length;
         this.takeCurrentPageElement();
         this.view.render(this.viewParam);
     }
