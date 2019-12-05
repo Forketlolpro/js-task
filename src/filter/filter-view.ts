@@ -8,7 +8,7 @@ export class DefaultFilterView implements FilterView {
     }
 
     generateResetButton(item) {
-        if (item[1].selectMin > item[1].min|| item[1].selectMax < item[1].max) {
+        if (item[1].selectMin > item[1].min || item[1].selectMax < item[1].max) {
             return `<button data-property="${item[0]}" type="reset" class="resetFilter">&#10005;</button>`
         }
 
@@ -29,8 +29,8 @@ export class DefaultFilterView implements FilterView {
     generateFilterForm(model) {
         return `<form>
                     ${Object.entries(model).map((item) => {
-                      return this.generateFilterItem(item);
-                    }).join(' ')}
+            return this.generateFilterItem(item);
+        }).join(' ')}
                     <button class="btn btn-primary"type="submit">Apply</button>
                 </form>`
     }

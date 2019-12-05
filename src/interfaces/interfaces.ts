@@ -3,13 +3,16 @@ import {PaginationViewParam} from "../pagination/pagination-view-param";
 
 export interface Subject {
     attach(observer: any): void;
+
     detach(observer: any): void;
+
     notify(): void;
 }
 
 export interface BaseView {
     selector: string;
-    render(...args : any[]): void;
+
+    render(...args: any[]): void;
 }
 
 export interface TableView<ReportItem> extends BaseView {
@@ -20,7 +23,7 @@ export interface FilterView extends BaseView {
     render(filters: any[]): void;
 }
 
-export interface PaginationView extends BaseView{
+export interface PaginationView extends BaseView {
     render(paginationParams: PaginationViewParam): void;
 }
 

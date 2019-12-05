@@ -41,7 +41,7 @@ export class Filter implements Subject {
 
     clickEventHandler = (e) => {
         e.stopPropagation();
-        if(e.target.className === 'resetFilter') {
+        if (e.target.className === 'resetFilter') {
             this.filterModel[e.target.dataset['property']].selectMin = this.filterModel[e.target.dataset['property']].min;
             this.filterModel[e.target.dataset['property']].selectMax = this.filterModel[e.target.dataset['property']].max;
             this.show();
@@ -49,13 +49,13 @@ export class Filter implements Subject {
     };
 
     keypressEventHandler = (e) => {
-        if(e.code ==='Enter') {
+        if (e.code === 'Enter') {
             e.preventDefault();
         }
     };
 
     focusoutEventHandler = (e) => {
-        if (e.target.tagName==='BUTTON') {
+        if (e.target.tagName === 'BUTTON') {
             return true;
         }
         let elem = e.target;
@@ -66,7 +66,7 @@ export class Filter implements Subject {
             e.target.value = this.filterModel[elem.dataset['property']].max;
         }
 
-        this.filterModel[elem.dataset['property']]['select'+elem.dataset['use']] = +elem.value;
+        this.filterModel[elem.dataset['property']]['select' + elem.dataset['use']] = +elem.value;
         this.show();
     };
 

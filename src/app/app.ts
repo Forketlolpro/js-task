@@ -37,7 +37,7 @@ export class App {
     private filter: Filter;
 
     constructor() {
-        simulateAsyncRequest().then((json: ReportItem) =>{
+        simulateAsyncRequest().then((json: ReportItem) => {
             this.filter = new Filter(new DefaultFilterView('.filter'));
             this.filter.initialize(json, filterModel);
             this.filter.attach(this.filterHandler);

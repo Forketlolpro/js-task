@@ -20,7 +20,7 @@ export class Paginator implements Subject {
     initialize(data): void {
         this.data = data;
         this.viewParam.pagesTotal = Math.ceil(this.data.length / this.viewParam.itemsOnPage);
-        this.viewParam.currentPage= 1;
+        this.viewParam.currentPage = 1;
         this.viewParam.itemCount = data.lenght;
         this.takeCurrentPageElement();
         this.view.render(this.viewParam);
@@ -29,7 +29,7 @@ export class Paginator implements Subject {
     private changeEventHandler = (e) => {
         this.viewParam.itemsOnPage = e.target.value;
         this.viewParam.pagesTotal = Math.ceil(this.data.length / this.viewParam.itemsOnPage);
-        this.viewParam.currentPage= 1;
+        this.viewParam.currentPage = 1;
         this.takeCurrentPageElement();
         this.view.render(this.viewParam);
         this.notify();

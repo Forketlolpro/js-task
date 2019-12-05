@@ -11,14 +11,14 @@ export class DefaultTableView<ReportItem> implements TableView<ReportItem> {
         return Object.keys(headerModel).map(key => {
             let htmlClass = '';
             if (sortingModel.prop === key) {
-                htmlClass = sortingModel.direction ? sortingModel.direction: '';
+                htmlClass = sortingModel.direction ? sortingModel.direction : '';
             }
             return (headerModel[key].sortable) ? `<th class='${htmlClass}' data-property='${key}'> ${headerModel[key].title} </th>` : `<th> ${headerModel[key].title} </th>`;
         }).join(' ');
     }
 
     generateImageCell(row, key) {
-        return `<td><img src="${IMAGE_PREFIX+row['image']}"></td>`;
+        return `<td><img src="${IMAGE_PREFIX + row['image']}"></td>`;
     }
 
     generateNameCell(row, key) {
@@ -26,14 +26,13 @@ export class DefaultTableView<ReportItem> implements TableView<ReportItem> {
     }
 
 
-    //вот тут так себе получилось(
     private generateBody(data, headerModel) {
         return data.map(row => {
             return `<tr>${Object.keys(headerModel).map(key => {
-                if (key ==='image') {
-                    return this.generateImageCell(row,key)
+                if (key === 'image') {
+                    return this.generateImageCell(row, key)
                 }
-                return (key==='displayName') ? this.generateNameCell(row,key): `<td>${row[key]}</td>`;
+                return (key === 'displayName') ? this.generateNameCell(row, key) : `<td>${row[key]}</td>`;
             }).join(' ')}</tr>`
         }).join(' ');
     }
